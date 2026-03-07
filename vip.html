@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VIP Only</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>VIP Only 🔒</h1>
+
+<div class="gallery" id="vipGallery"></div>
+
+<script>
+
+const vipImages = [
+"vip1.jpg",
+"vip2.jpg",
+"vip3.jpg"
+];
+
+const gallery = document.getElementById("vipGallery");
+
+vipImages.forEach(photo => {
+let img = document.createElement("img");
+img.src = "photos/vip/" + photo;
+gallery.appendChild(img);
+});
+
+</script>
+
+</body>
+</html>

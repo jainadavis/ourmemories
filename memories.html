@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Our Memories</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* fullscreen viewer */
+
+#viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+#viewer img{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+
+#viewer span{
+position:absolute;
+top:20px;
+right:40px;
+font-size:40px;
+color:white;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Our Memories <span class="vip-heart" onclick="openVIP()">❤️</span></h1>
+
+<div class="gallery" id="gallery"></div>
+
+<button class="secret" onclick="window.location.href='vip.html'">VIP</button>
+
+<div id="viewer">
+<span onclick="closeViewer()">✕</span>
+<img id="viewerImg">
+</div>
+
+<script>
+
+/* photo list */
+
+const images = [
+    "footballgame1.jpg",
+];
+
+const gallery = document.getElementById("gallery");
+
+/* create gallery */
+
+images.forEach(photo => {
+
+let img = document.createElement("img");
+img.src = "photos/memories/" + photo;
+
+img.onclick = () => {
+openViewer(img.src);
+};
+
+gallery.appendChild(img);
+
+});
+
+/* viewer */
+
+function openViewer(src){
+document.getElementById("viewer").style.display="flex";
+document.getElementById("viewerImg").src=src;
+}
+
+function closeViewer(){
+document.getElementById("viewer").style.display="none";
+}
+
+</script>
+<audio id="music" autoplay loop>
+<source src="music/song.mp3" type="audio/mpeg">
+function openVIP(){
+window.location.href = "vip.html";
+}
+</audio>
+
+<script>
+
+if(localStorage.getItem("unlocked") === "true"){
+document.getElementById("music").play();
+}
+
+</script>
+</body>
+</html>

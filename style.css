@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap');
+
+body{
+background: linear-gradient(135deg,#4facfe,#00c6ff);
+font-family: 'Poppins', sans-serif;
+text-align:center;
+margin:0;
+padding:40px;
+color:white;
+}
+
+/* fancy title font */
+h1{
+font-family:'Great Vibes', cursive;
+font-size:60px;
+margin-bottom:10px;
+}
+
+/* password box */
+.login-box{
+background:white;
+color:black;
+padding:40px;
+border-radius:20px;
+display:inline-block;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* input box */
+input{
+padding:12px;
+margin:10px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* buttons */
+button{
+padding:12px 25px;
+background:#0077ff;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#005edb;
+}
+
+/* pinterest style photo layout */
+.gallery{
+column-count:3;
+column-gap:20px;
+max-width:1000px;
+margin:40px auto;
+}
+
+.gallery img{
+width:100%;
+margin-bottom:20px;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.25);
+break-inside: avoid;
+transition: transform 0.3s;
+}
+
+/* hover effect */
+.gallery img:hover{
+transform:scale(1.03);
+}
+
+/* hidden VIP button */
+.secret{
+position:fixed;
+bottom:20px;
+right:20px;
+opacity:0.3;
+padding:10px 15px;
+border-radius:20px;
+background:#0077ff;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.secret:hover{
+opacity:1;
+}
+.vip-heart{
+cursor:pointer;
+transition:transform 0.2s;
+}
+
+.vip-heart:hover{
+transform:scale(1.2);
+}
