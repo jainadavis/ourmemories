@@ -1,50 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 body{
 margin:0;
 font-family:Arial, sans-serif;
 text-align:center;
 color:white;
 padding:20px;
-background:#4169E1;
+background:#070f3a; /* deep royal blue */
 overflow-x:hidden;
 }
 
-/* star layer */
-
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-background-image:
-radial-gradient(gold 1px, transparent 1px),
-radial-gradient(gold 1px, transparent 1px),
-radial-gradient(gold 1px, transparent 1px);
-background-size:80px 80px,120px 120px,200px 200px;
-background-position:0 0,40px 60px,90px 30px;
-animation:twinkle 6s infinite alternate;
-opacity:0.6;
-}
-
-/* twinkle animation */
-
-@keyframes twinkle{
-0%{opacity:0.4;}
-50%{opacity:0.7;}
-100%{opacity:0.4;}
-}
+/* title */
 
 h1{
-font-size:42px;
+font-family:'Great Vibes', cursive;
+font-size:56px;
 margin-top:10px;
 color:#FFD700;
 text-shadow:
-0 0 6px rgba(255,215,0,0.7),
-0 0 12px rgba(255,215,0,0.5),
-0 0 20px rgba(255,215,0,0.3);
+0 0 6px rgba(255,215,0,0.6),
+0 0 12px rgba(255,215,0,0.4);
 }
+
+/* gallery */
+
 .gallery{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -58,8 +36,10 @@ margin-top:30px;
 width:100%;
 border-radius:12px;
 cursor:pointer;
-box-shadow:0 10px 20px rgba(0,0,0,0.25);
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
+
+/* back button */
 
 .back-btn{
 position:fixed;
@@ -69,10 +49,12 @@ padding:10px 16px;
 border:none;
 border-radius:10px;
 background:white;
-color:#4169E1;
+color:#070f3a;
 font-weight:bold;
 cursor:pointer;
 }
+
+/* fullscreen viewer */
 
 #viewer{
 display:none;
@@ -109,5 +91,17 @@ font-size:32px;
 .gallery{
 grid-template-columns:1fr;
 }
-
+#musicButton{
+position:fixed;
+bottom:20px;
+right:20px;
+padding:10px 14px;
+border:none;
+border-radius:8px;
+background:white;
+color:#070f3a;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
 }

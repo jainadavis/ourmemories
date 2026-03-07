@@ -1,21 +1,122 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
 <title>Our Memories</title>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<audio id="music"></audio>
 
+<script>
+
+/* MUSIC SYSTEM */
+
+const songs = [
+"music/Body.mp3",
+"music/e85.mp3",
+"music/nkeemp3.mp3",
+"music/ordinary.mp3"
+];
+
+let music = document.getElementById("music");
+let musicButton = document.getElementById("musicButton");
+
+/* shuffle songs */
+
+songs.sort(() => Math.random() - 0.5);
+
+let currentSong = 0;
+
+function playSong(){
+music.src = songs[currentSong];
+music.play().catch(()=>{});
+}
+
+music.addEventListener("ended", function(){
+
+currentSong++;
+
+if(currentSong >= songs.length){
+songs.sort(() => Math.random() - 0.5);
+currentSong = 0;
+}
+
+playSong();
+
+});
+
+function toggleMusic(){
+
+if(music.paused){
+music.play();
+musicButton.textContent = "⏸ Pause";
+}
+
+else{
+music.pause();
+musicButton.textContent = "▶ Play";
+}
+
+}
+
+window.addEventListener("load", function(){
+
+playSong();
+
+document.body.addEventListener("click", function(){
+music.play();
+}, {once:true});
+
+});
+
+</script>
 <body>
 
 <h1>Our Memories <span onclick="openVIP()" style="cursor:pointer;">❤️</span></h1>
 
+<button id="musicButton" onclick="toggleMusic()">⏸ Pause</button>
+
 <div class="gallery">
 
-<img src="photos/memories/footballgame1.JPEG">
+<img src="photos/memories/a.JPEG" loading="lazy">
+<img src="photos/memories/aa.JPEG" loading="lazy">
+<img src="photos/memories/as.JPEG" loading="lazy">
+<img src="photos/memories/asw.PNG" loading="lazy">
+<img src="photos/memories/aura.JPEG" loading="lazy">
+<img src="photos/memories/aura2.JPEG" loading="lazy">
+<img src="photos/memories/aura3.JPEG" loading="lazy">
+<img src="photos/memories/aw.JPEG" loading="lazy">
+<img src="photos/memories/blue.JPG" loading="lazy">
+<img src="photos/memories/footballgame1.JPEG" loading="lazy">
+<img src="photos/memories/h.JPG" loading="lazy">
+<img src="photos/memories/hgs.JPEG" loading="lazy">
+<img src="photos/memories/hi.JPEG" loading="lazy">
+<img src="photos/memories/hlwn.JPEG" loading="lazy">
+<img src="photos/memories/hs.JPEG" loading="lazy">
+<img src="photos/memories/hsd.JPEG" loading="lazy">
+<img src="photos/memories/hss.JPEG" loading="lazy">
+<img src="photos/memories/hu.JPEG" loading="lazy">
+<img src="photos/memories/huo.JPEG" loading="lazy">
+<img src="photos/memories/hus.JPG" loading="lazy">
+<img src="photos/memories/newyear.JPEG" loading="lazy">
+<img src="photos/memories/oi.JPG" loading="lazy">
+<img src="photos/memories/po.JPEG" loading="lazy">
+<img src="photos/memories/pumpkin.PNG" loading="lazy">
+<img src="photos/memories/qw.JPEG" loading="lazy">
+<img src="photos/memories/re.JPEG" loading="lazy">
+<img src="photos/memories/ree.JPEG" loading="lazy">
+<img src="photos/memories/sc.JPEG" loading="lazy">
+<img src="photos/memories/sleep.JPEG" loading="lazy">
+<img src="photos/memories/usuo.JPG" loading="lazy">
+<img src="photos/memories/walk.JPEG" loading="lazy">
+<img src="photos/memories/we.JPEG" loading="lazy">
+<img src="photos/memories/wew.JPEG" loading="lazy">
+<img src="photos/memories/yu.JPEG" loading="lazy">
+<img src="photos/memories/yui.JPEG" loading="lazy">
 
 </div>
-
 <div id="viewer">
 <span onclick="closeViewer()">✕</span>
 <img id="viewerImg">
@@ -23,46 +124,44 @@
 
 <script>
 
+/* PHOTO VIEWER */
+
 let images = Array.from(document.querySelectorAll(".gallery img"));
 let currentIndex = 0;
 
-images.forEach((img, index) => {
-img.onclick = function(){
-currentIndex = index;
+images.forEach((img,index)=>{
+img.onclick=function(){
+currentIndex=index;
 openViewer(img.src);
 };
 });
 
 function openViewer(src){
 document.getElementById("viewer").style.display="flex";
-document.getElementById("viewerImg").src = src;
+document.getElementById("viewerImg").src=src;
 }
 
 function closeViewer(){
 document.getElementById("viewer").style.display="none";
 }
 
-function openVIP(){
-window.location.href="vip.html";
-}
+/* SWIPE SUPPORT */
 
-/* swipe support */
+let startX=0;
 
-let startX = 0;
-
-document.getElementById("viewer").addEventListener("touchstart", e=>{
-startX = e.touches[0].clientX;
+document.getElementById("viewer").addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX;
 });
 
-document.getElementById("viewer").addEventListener("touchend", e=>{
+document.getElementById("viewer").addEventListener("touchend",e=>{
 
-let endX = e.changedTouches[0].clientX;
+let endX=e.changedTouches[0].clientX;
 
-if(endX < startX - 50){
+if(endX<startX-50){
 nextImage();
 }
 
-if(endX > startX + 50){
+if(endX>startX+50){
 prevImage();
 }
 
@@ -70,41 +169,24 @@ prevImage();
 
 function nextImage(){
 currentIndex++;
-if(currentIndex >= images.length){
-currentIndex = 0;
+if(currentIndex>=images.length){
+currentIndex=0;
 }
-document.getElementById("viewerImg").src = images[currentIndex].src;
+document.getElementById("viewerImg").src=images[currentIndex].src;
 }
 
 function prevImage(){
 currentIndex--;
-if(currentIndex < 0){
-currentIndex = images.length - 1;
+if(currentIndex<0){
+currentIndex=images.length-1;
 }
-document.getElementById("viewerImg").src = images[currentIndex].src;
+document.getElementById("viewerImg").src=images[currentIndex].src;
+}
+
+/* VIP LINK */
+
+function openVIP(){
+window.location.href="vip.html";
 }
 
 </script>
-
-<audio id="music" loop>
-<source src="music/song.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-document.body.addEventListener("click", function(){
-let music = document.getElementById("music");
-music.play();
-}, { once: true });
-</script>
-<audio id="music" autoplay loop>
-<source src="music/song.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-window.addEventListener("load", function(){
-let music = document.getElementById("music");
-music.play().catch(()=>{});
-});
-</script>
-</body>
-</html>
