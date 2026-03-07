@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>VIP Only</title>
+<title>Just For You</title>
 <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
-<h1>VIP Only 🔒</h1>
+<button class="back-btn" onclick="goBack()">← Back</button>
 
-<div class="gallery" id="gallery"></div>
+<h1>Just For You ❤️</h1>
 
-<div id="viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center;">
-<span onclick="closeViewer()" style="position:absolute; top:20px; right:40px; font-size:40px; color:white; cursor:pointer;">✕</span>
-<img id="viewerImg" style="max-width:90%; max-height:90%; border-radius:10px;">
+<div class="gallery">
+
+<img src="photos/vip/vip1.JPEG">
+<img src="photos/vip/vip2.JPEG">
+
+</div>
+
+<div id="viewer">
+<span onclick="closeViewer()">✕</span>
+<img id="viewerImg">
 </div>
 
 <script>
 
-/* LIST YOUR VIP PHOTOS HERE */
+let images = Array.from(document.querySelectorAll(".gallery img"));
+let currentIndex = 0;
 
-const images = [
-"vip1.JPEG"
-];
-
-const gallery = document.getElementById("gallery");
-
-images.forEach(photo => {
-
-let img = document.createElement("img");
-img.src = "photos/vip/" + photo;
-
-img.onclick = () => {
+images.forEach((img, index) => {
+img.onclick = function(){
+currentIndex = index;
 openViewer(img.src);
 };
-
-gallery.appendChild(img);
-
 });
 
 function openViewer(src){
@@ -48,12 +45,49 @@ function closeViewer(){
 document.getElementById("viewer").style.display="none";
 }
 
+function goBack(){
+window.location.href="memories.html";
+}
+
+/* swipe support */
+
+let startX = 0;
+
+document.getElementById("viewer").addEventListener("touchstart", e=>{
+startX = e.touches[0].clientX;
+});
+
+document.getElementById("viewer").addEventListener("touchend", e=>{
+
+let endX = e.changedTouches[0].clientX;
+
+if(endX < startX - 50){
+nextImage();
+}
+
+if(endX > startX + 50){
+prevImage();
+}
+
+});
+
+function nextImage(){
+currentIndex++;
+if(currentIndex >= images.length){
+currentIndex = 0;
+}
+document.getElementById("viewerImg").src = images[currentIndex].src;
+}
+
+function prevImage(){
+currentIndex--;
+if(currentIndex < 0){
+currentIndex = images.length - 1;
+}
+document.getElementById("viewerImg").src = images[currentIndex].src;
+}
+
 </script>
 
 </body>
-<script>
-if(localStorage.getItem("unlocked") !== "true"){
-window.location.href = "index.html";
-}
-</script>
 </html>
