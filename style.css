@@ -33,9 +33,6 @@ margin-bottom:20px;
 font-size:14px;
 margin-bottom:6px;
 color:white;
-opacity:0;
-transform:translateY(-5px);
-transition:all 0.4s ease;
 }
 
 #songTitle.show{
