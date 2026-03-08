@@ -7,76 +7,22 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<audio id="music"></audio>
 
-<script>
-
-/* MUSIC SYSTEM */
-
-const songs = [
-"music/Body.mp3",
-"music/e85.mp3",
-"music/nkeemp3.mp3",
-"music/ordinary.mp3"
-];
-
-let music = document.getElementById("music");
-let musicButton = document.getElementById("musicButton");
-
-/* shuffle songs */
-
-songs.sort(() => Math.random() - 0.5);
-
-let currentSong = 0;
-
-function playSong(){
-music.src = songs[currentSong];
-music.play().catch(()=>{});
-}
-
-music.addEventListener("ended", function(){
-
-currentSong++;
-
-if(currentSong >= songs.length){
-songs.sort(() => Math.random() - 0.5);
-currentSong = 0;
-}
-
-playSong();
-
-});
-
-function toggleMusic(){
-
-if(music.paused){
-music.play();
-musicButton.textContent = "⏸ Pause";
-}
-
-else{
-music.pause();
-musicButton.textContent = "▶ Play";
-}
-
-}
-
-window.addEventListener("load", function(){
-
-playSong();
-
-document.body.addEventListener("click", function(){
-music.play();
-}, {once:true});
-
-});
-
-</script>
 <body>
 
 <h1>Our Memories <span onclick="openVIP()" style="cursor:pointer;">❤️</span></h1>
 
-<button id="musicButton" onclick="toggleMusic()">⏸ Pause</button>
+<div id="musicControls">
+
+<div id="songTitle">Loading...</div>
+
+<div id="playerButtons">
+<button onclick="rewindSong()">⏮</button>
+<button id="musicButton" onclick="toggleMusic()">⏸</button>
+<button onclick="skipSong()">⏭</button>
+</div>
+
+</div>
 
 <div class="gallery">
 
@@ -117,10 +63,20 @@ music.play();
 <img src="photos/memories/yui.JPEG" loading="lazy">
 
 </div>
+
 <div id="viewer">
-<span onclick="closeViewer()">✕</span>
+
+<div id="leftArrow" class="arrow" onclick="prevImage()">❮</div>
+
 <img id="viewerImg">
+
+<div id="rightArrow" class="arrow" onclick="nextImage()">❯</div>
+
+<span onclick="closeViewer()">✕</span>
+
 </div>
+
+<audio id="music"></audio>
 
 <script>
 
@@ -145,7 +101,7 @@ function closeViewer(){
 document.getElementById("viewer").style.display="none";
 }
 
-/* SWIPE SUPPORT */
+/* SWIPE */
 
 let startX=0;
 
@@ -154,32 +110,21 @@ startX=e.touches[0].clientX;
 });
 
 document.getElementById("viewer").addEventListener("touchend",e=>{
-
 let endX=e.changedTouches[0].clientX;
 
-if(endX<startX-50){
-nextImage();
-}
-
-if(endX>startX+50){
-prevImage();
-}
-
+if(endX<startX-50){nextImage();}
+if(endX>startX+50){prevImage();}
 });
 
 function nextImage(){
 currentIndex++;
-if(currentIndex>=images.length){
-currentIndex=0;
-}
+if(currentIndex>=images.length){currentIndex=0;}
 document.getElementById("viewerImg").src=images[currentIndex].src;
 }
 
 function prevImage(){
 currentIndex--;
-if(currentIndex<0){
-currentIndex=images.length-1;
-}
+if(currentIndex<0){currentIndex=images.length-1;}
 document.getElementById("viewerImg").src=images[currentIndex].src;
 }
 
@@ -189,4 +134,98 @@ function openVIP(){
 window.location.href="vip.html";
 }
 
+/* MUSIC */
+
+const songs=[
+"music/Body.mp3",
+"music/e85.mp3",
+"music/nkeemp3.mp3",
+"music/ordinary.mp3"
+];
+
+let music=document.getElementById("music");
+let musicButton=document.getElementById("musicButton");
+
+songs.sort(()=>Math.random()-0.5);
+
+let currentSong=0;
+
+function playSong(){
+
+music.src = songs[currentSong];
+
+updateSongTitle();
+
+music.play().catch(()=>{});
+function updateSongTitle(){
+
+let name = songs[currentSong]
+.split("/")
+.pop()
+.replace(".mp3","");
+
+document.getElementById("songTitle").textContent = name;
+
+}
+
+}
+
+music.addEventListener("ended",function(){
+
+currentSong++;
+
+if(currentSong>=songs.length){
+songs.sort(()=>Math.random()-0.5);
+currentSong=0;
+}
+
+playSong();
+
+});
+
+function toggleMusic(){
+
+if(music.paused){
+music.play();
+musicButton.textContent="⏸";
+}else{
+music.pause();
+musicButton.textContent="▶";
+}
+
+}
+
+function rewindSong(){
+music.currentTime=0;
+}
+
+function skipSong(){
+
+currentSong++;
+
+if(currentSong>=songs.length){
+currentSong=0;
+}
+
+playSong();
+
+}
+
+/* START MUSIC AFTER FIRST TAP (PHONES) */
+
+window.addEventListener("load",function(){
+
+document.body.addEventListener("click",function(){
+
+if(music.src===""){
+playSong();
+}
+
+},{once:true});
+
+});
+
 </script>
+
+</body>
+</html>

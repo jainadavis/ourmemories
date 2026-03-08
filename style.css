@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 body{
 margin:0;
 font-family:Arial, sans-serif;
 text-align:center;
 color:white;
 padding:20px;
-background:#070f3a; /* deep royal blue */
+background:#070f3a;
 overflow-x:hidden;
 }
 
-/* title */
+/* TITLE */
 
 h1{
 font-family:'Great Vibes', cursive;
@@ -21,7 +22,38 @@ text-shadow:
 0 0 12px rgba(255,215,0,0.4);
 }
 
-/* gallery */
+/* MUSIC CONTROLS */
+
+#musicControls{
+text-align:center;
+margin-bottom:20px;
+}
+
+#songTitle{
+font-size:14px;
+margin-bottom:6px;
+color:white;
+opacity:0;
+transform:translateY(-5px);
+transition:all 0.4s ease;
+}
+
+#songTitle.show{
+opacity:1;
+transform:translateY(0);
+}
+
+#playerButtons button{
+padding:8px 12px;
+border:none;
+border-radius:6px;
+background:white;
+cursor:pointer;
+font-size:16px;
+margin:0 4px;
+}
+
+/* GALLERY */
 
 .gallery{
 display:grid;
@@ -39,22 +71,7 @@ cursor:pointer;
 box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* back button */
-
-.back-btn{
-position:fixed;
-top:20px;
-left:20px;
-padding:10px 16px;
-border:none;
-border-radius:10px;
-background:white;
-color:#070f3a;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* fullscreen viewer */
+/* FULLSCREEN VIEWER */
 
 #viewer{
 display:none;
@@ -74,6 +91,8 @@ max-height:90%;
 border-radius:10px;
 }
 
+/* CLOSE BUTTON */
+
 #viewer span{
 position:absolute;
 top:20px;
@@ -82,26 +101,56 @@ font-size:40px;
 cursor:pointer;
 }
 
+/* ARROWS */
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:50px;
+color:white;
+cursor:pointer;
+padding:10px;
+user-select:none;
+}
+
+#leftArrow{
+left:30px;
+}
+
+#rightArrow{
+right:30px;
+}
+
+/* BACK BUTTON (VIP PAGE) */
+
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+padding:10px 16px;
+border:none;
+border-radius:10px;
+background:white;
+color:#070f3a;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* MOBILE */
+
 @media (max-width:600px){
 
 h1{
-font-size:32px;
+font-size:34px;
 }
 
 .gallery{
 grid-template-columns:1fr;
 }
-#musicButton{
-position:fixed;
-bottom:20px;
-right:20px;
-padding:10px 14px;
-border:none;
-border-radius:8px;
-background:white;
-color:#070f3a;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
+
+.arrow{
+font-size:40px;
 }
+
 }

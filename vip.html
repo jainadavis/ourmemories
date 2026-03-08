@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
+<audio id="music"></audio>
 <body>
 
 <button class="back-btn" onclick="goBack()">← Back</button>
@@ -136,6 +136,56 @@ star.style.boxShadow =
 },2000);
 
 }
+</script>
+<script>
+
+/* MUSIC SYSTEM */
+
+const songs = [
+"music/Body.mp3",
+"music/e85.mp3",
+"music/nkeemp3.mp3",
+"music/ordinary.mp3"
+];
+
+let music = document.getElementById("music");
+
+/* shuffle songs */
+
+songs.sort(() => Math.random() - 0.5);
+
+let currentSong = 0;
+
+function playSong(){
+music.src = songs[currentSong];
+music.play().catch(()=>{});
+}
+
+music.addEventListener("ended", function(){
+
+currentSong++;
+
+if(currentSong >= songs.length){
+songs.sort(() => Math.random() - 0.5);
+currentSong = 0;
+}
+
+playSong();
+
+});
+
+/* start music */
+
+window.addEventListener("load", function(){
+
+playSong();
+
+document.body.addEventListener("click", function(){
+music.play();
+}, {once:true});
+
+});
+
 </script>
 <body>
 
